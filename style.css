@@ -1,0 +1,52 @@
+body{
+
+    background-color: rgb(206, 126, 126);
+}
+.menuButton{
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    background-color: aquamarine;
+
+    
+
+}
+
+.menuButton button{ 
+    width: 150px;
+    padding: 15px;
+    font-size: 20px;
+    background-color: rgb(68, 30, 207);
+    border-radius: 25px;
+    color: white;
+    text-align: center;
+    
+
+}
+
+.menuButton button:hover{
+    opacity: 0.7;
+    cursor: pointer;
+    
+}
+
+
+.formAgregar{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.formAgregar h2{
+color: white;
+}
+
+.formAgregar button{
+    margin-top: 20px;
+}
