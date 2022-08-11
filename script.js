@@ -1,23 +1,18 @@
 
 /*------------------------------ DECLARACION DE ARRAYS---------------------------------*/
 
-const flota = [
-    {locomotora: "8231", eot: "44000"},
-    {locomotora: "8232", eot: "44001" },
-    {locomotora: "8233", eot: "44002"},
-    {locomotora: "9090", eot: "44003"},
-    {locomotora: "9101", eot: "44004" },
-    {locomotora: "9100", eot: "44005" },
-    {locomotora: "9037", eot: "44006"},
-    {locomotora: "6596", eot: "44007" },
-    {locomotora: "6624", eot: "44008" },
-    {locomotora: "6634", eot: "44009" }
 
-]
+let flota = [{locomotora: "8231", eot: "44000"},
+{locomotora: "8232", eot: "44001" },
+{locomotora: "8233", eot: "44002"}]
 
 
 
 /* -------------------------------DECLARACION DE VARIABLES---------------------------------- */
+
+let jSon = JSON.stringify(flota)
+localStorage.setItem(`flota`, jSon)
+
 
 
 let agregarLoc = 0
@@ -31,10 +26,10 @@ const resultadoLoc = 0
 
    function agregar() { // Funcion para agregar un nuevo objeto a la flota     
                              
-     
-
+      let flota = [JSON.parse(localStorage.getItem(`flota`))]
       
-
+      
+      
       
      
       
@@ -45,14 +40,14 @@ const resultadoLoc = 0
        
          divLista.innerHTML = `
          <div class="formAgregar">
-         <H2 id="etiquetaLoc">Ingrese número de locomotora que  desea agregar:</H2>
+         <H2 id="etiquetaLoc">Ingrese número de locomotora que  desea agregar</H2>
          <input type="number" id ="inputEtiquetaLoc">
          <H2 id="etiquetaEot">Ingrese número de EOT que desea asignar</H2>
          <input type="number" id ="inputEtiquetaEot">
          <button  class ="enviarButton">ENVIAR</button>
          </div>`
         
-   
+  
 
          let inputEtiquetaLoc = document.querySelector(`#inputEtiquetaLoc`)
          let inputEtiquetaEot = document.querySelector(`#inputEtiquetaEot`)
@@ -61,7 +56,9 @@ const resultadoLoc = 0
        
 
         enviarButton.onclick = () => {
-            
+
+        
+           
          
          agregarLoc = inputEtiquetaLoc.value
          
@@ -88,9 +85,9 @@ const resultadoLoc = 0
                   }     
                       
        } 
+      }
 
-
-
+//---------------------------------------------------------Función masEot-------------------------------------------------------------
     
         function masEot(){
 
@@ -113,23 +110,30 @@ const resultadoLoc = 0
            console.log(flota)
            }
 
-           let finAgregar = document.querySelector(".formAgregar") 
-           finAgregar.remove()
-        }
-        }
 
+           
+
+
+           let jSon = JSON.stringify(flota)
+           localStorage.setItem(`flota`, jSon)
+
+           let finAgregar = document.querySelector(".formAgregar") 
+          
+        }
+        
+// --------------------------------------------------------------------Función modificar -------------------------------------------------------------------------
 
         function modificar(){ //modifica un EOT a una locomotora existente
                                     
           
-          
+         let flota = JSON.parse(localStorage.getItem(`flota`))
 
            let divLista = document.querySelector(".listaAgregar")          
           
        
          divLista.innerHTML = `
          <div class="formAgregar">
-         <H2 id="etiquetaLoc">Ingrese número de locomotora que a la que desea modificarle el número de eot:</H2>
+         <H2 id="etiquetaLoc">Ingrese número de locomotora  a la que desea modificarle el número de eot</H2>
          <input type="number" id ="inputEtiquetaLoc">
          <H2 id="etiquetaEot">Ingrese número de EOT que desea asignar</H2>
          <input type="number" id ="inputEtiquetaEot">
@@ -189,8 +193,9 @@ const resultadoLoc = 0
           alert("Se modificará la lista con los valores cargados \nPuede ver la lista modificada en la consola")
           flota.splice(posicion, 1) // Elimina el objeteo de la posición obtenida anteriormente
           flota.push({locomotora: busquedaLoc, eot: busquedaEot }) //agrega el objeto ingresado por el usuario
-          
-          console.log(flota) // Muestra como queda la lista definitiva
+          let jSon = JSON.stringify(flota)
+           localStorage.setItem(`flota`, jSon)
+          //console.log(flota) // Muestra como queda la lista definitiva
          }}
          let finAgregar = document.querySelector(".formAgregar") 
          finAgregar.remove()}
@@ -198,15 +203,17 @@ const resultadoLoc = 0
       }
          
 
+      // ---------------------------------------------Función Eliminar ---------------------------------------------
+
 
          function eliminar(){ // Elimina un objeto de la lista
-
+            let flota = JSON.parse(localStorage.getItem(`flota`))
             let divLista = document.querySelector(".listaAgregar")          
           
        
             divLista.innerHTML = `
             <div class="formAgregar">
-            <H2 id="etiquetaLoc">Ingrese el número de locomotora que  desea eliminar:</H2>
+            <H2 id="etiquetaLoc">Ingrese el número de locomotora que  desea eliminar</H2>
             <input type="number" id ="inputEtiquetaLoc">
             
             <button  class ="enviarButton">ENVIAR</button>
@@ -241,8 +248,12 @@ const resultadoLoc = 0
              console.log(resultado ) // Muestra el objeto eliminado por consola
 
              flota.splice(posicion, 1) // Elimina el objeteo de la posición obtenida anteriormente
-                       
-             console.log(flota) // Muestra como queda la lista definitiva
+             let jSon = JSON.stringify(flota)
+          
+             localStorage.setItem(`flota`, jSon)   
+             let finAgregar = document.querySelector(".formAgregar") 
+             finAgregar.remove()       
+             //console.log(flota) // Muestra como queda la lista definitiva
             }
          else if(ubicacion != true){
 
@@ -265,11 +276,81 @@ const resultadoLoc = 0
       agregarB.onclick = () =>{agregar()}
       modificarB.onclick = () =>{ modificar()}
       eliminarB.onclick = () =>{ eliminar() }
-      verB.onclick = () => {
-         alert("La lista se puede ver en la consola")
-         flota.forEach((el) => {
-         console.log(el)})}
-                              
+      
+      
+      verB.onclick = () => { 
+
+           
+         esta()  
+         
+      }
+         
+         
+        
+        function esta (){
+         let flota = JSON.parse(localStorage.getItem(`flota`))
+         divLista=document.querySelector(".listaAgregar")
+         
+        
+
+      
+            divLista.innerHTML=`
+               <div class="divFlota">
+                  <ul class="ulFlota"></ul>
+                  <ul class="ulEot"></ul>
+               </div>
+               
+               `
+
+
+         
+         for (const flotas of flota) {
+           
+            let ulFlota = document.querySelector(".ulFlota")
+            
+            let liFlota = document.createElement("li")
+            ulFlota.appendChild(liFlota)
+
+            liFlota.className = "liFlotaLoc"
+           
+           liFlota.innerText = `${flotas.locomotora}                          
+                              `                       
+                                 
+         }
+
+         for (const eots of flota) {
+            let ulEot = document.querySelector(".ulEot")
+            let liEot = document.createElement("li")
+            ulEot.appendChild(liEot)
+            liEot.className = "loEot"
+            liEot.innerText = `${eots.eot}`
+         }
+        
+      }
+
+      
+         
+
+        
+            
+         
+         
+         
+
+      
+       
+        
+            
+         
+         
+            
+            
+         
+
+            
+             
+       
+
     
         
 
